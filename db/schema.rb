@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_12_125532) do
+ActiveRecord::Schema.define(version: 2023_11_06_160821) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,8 +26,8 @@ ActiveRecord::Schema.define(version: 2022_02_12_125532) do
     t.string "uid"
     t.string "first_name"
     t.string "last_name"
-    t.integer "from_amount_cents", null: false
-    t.integer "to_amount_cents", null: false
+    t.bigint "from_amount_cents", null: false
+    t.bigint "to_amount_cents", null: false
     t.string "from_currency", default: "USD", null: false
     t.string "to_currency", null: false
     t.bigint "manager_id"
