@@ -1,5 +1,6 @@
 class Transaction < ApplicationRecord
   AVAILABLE_CURRENCIES = ['USD', 'GBP', 'AUD', 'CAD'].freeze
+  AVAILABLE_TRANSACTION_TYPES = [:small, :large, :extra].freeze
 
   belongs_to :manager, optional: true
 
@@ -14,6 +15,7 @@ class Transaction < ApplicationRecord
   validate :manager_validation
 
   before_create :generate_uid
+  before_validation :assign_manager, if: :extra_large?
   before_validation :convert
 
   def client_full_name
@@ -33,6 +35,10 @@ class Transaction < ApplicationRecord
   end
 
   private
+
+  def assign_manager
+    self.manager = Manager.find(Manager.ids.sample)
+  end
 
   def generate_uid
     self.uid = SecureRandom.hex(5)
